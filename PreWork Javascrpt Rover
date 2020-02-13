@@ -1,0 +1,191 @@
+// Rover Object Goes Here
+// ======================
+let rover = {
+  direction: "N",
+  x:0,
+  y:0,
+  pastPosition : []
+  
+}
+// ======================
+
+
+
+  
+// Função para virar o rover para a esquerda
+  
+function turnLeft(){
+  switch(rover.direction){
+      
+      case("N"):
+        rover.direction = "W"
+       break;
+      case("W"):
+         rover.direction = "S"
+       break;  
+      case("S"):
+         rover.direction = "E"
+       break;
+      case("E"):
+         rover.direction = "N"
+       break;
+      
+  }
+  console.log(`turnLeft was called! Rover is now directed to ${rover.direction}`);
+  
+}
+
+
+
+
+// Função para virar o rover para a direita
+
+function turnRight(){
+  switch(rover.direction){
+      case("N"):
+         rover.direction = "E" ;
+       break;
+      case("E"):
+         rover.direction = "S" ;
+       break;  
+      case("S"):
+         rover.direction = "W" ;
+       break;
+      case("W"):
+         rover.direction = "N" ;
+       break;
+  }
+  console.log(`turnRight was called! Rover is now directed to ${rover.direction}`);
+}
+
+
+
+
+// Função para o rover andar para frente em cada caso de direção e não ultrapassar a grade 10x10
+
+function moveForward(){
+   switch(rover.direction){
+       
+      case("N"):
+       if(rover.y>0){
+            rover.y-- ;
+            console.log(`moveForward was called. The new position of rover is now x = ${rover.x} and y = ${rover.y}`) ;
+       } else {
+            console.log("impossible to execute command. Rover is at the edge of the grid in Y = 0") ;
+       }break;
+       
+       
+      case("E"):
+       if(rover.x<10){
+            rover.x++ ;
+            console.log(`moveForward was called. The new position of rover is now x = ${rover.x} and y = ${rover.y}`) ;
+       } else {
+            console.log("impossible to execute command. Rover is at the edge of the grid in X = 10") ;
+       }break;  
+       
+       
+      case("S"):
+       if(rover.y<10){
+            rover.y++ ;
+            console.log(`moveForward was called. The new position of rover is now x = ${rover.x} and y = ${rover.y}`) ;
+       }else {
+            console.log("impossible to execute command. Rover is at the edge of the grid in Y = 10") ;
+       }break;
+       
+       
+      case("W"):
+        if(rover.x>0){
+            rover.x-- ;
+            console.log(`moveForward was called. The new position of rover is now x = ${rover.x} and y = ${rover.y}`) ;   
+       }else {
+            console.log("impossible to execute command. Rover is at the edge of the grid in X = 0") ;
+       }break;
+  }
+  
+}
+
+
+
+
+function moveBackward(){
+   switch(rover.direction){
+       
+      case("N"):
+       if(rover.y<10){
+            rover.y++ ;
+            console.log(`moveBackrward was called. The new position of rover is now x = ${rover.x} and y = ${rover.y}`) ;
+       } else {
+            console.log("impossible to execute command. Rover is at the edge of the grid in Y = 10") ;
+       }break;
+       
+       
+      case("E"):
+       if(rover.x>0){
+            rover.x-- ;
+            console.log(`moveBackrward was called. The new position of rover is now x = ${rover.x} and y = ${rover.y}`) ;
+       } else {
+            console.log("impossible to execute command. Rover is at the edge of the grid in X = 10") ;
+       }break;  
+       
+       
+      case("S"):
+       if(rover.y>0){
+            rover.y-- ;
+            console.log(`moveBackrward was called. The new position of rover is now x = ${rover.x} and y = ${rover.y}`) ;
+       }else {
+            console.log("impossible to execute command. Rover is at the edge of the grid in Y = 10") ;
+       }break;
+       
+       
+      case("W"):
+        if(rover.x<10){
+            rover.x++ ;
+            console.log(`moveBackrward was called. The new position of rover is now x = ${rover.x} and y = ${rover.y}`) ;   
+       }else {
+            console.log("impossible to execute command. Rover is at the edge of the grid in X = 0") ;
+       }break;
+  }
+  
+}
+
+
+
+
+
+function receiveCom (listOfCom){
+  for (let cond=0; cond <= listOfCom.length-1; cond++){
+    switch (listOfCom[cond]){
+      case("f" || "F"):
+        moveForward();
+        rover.pastPosition.push(`X = ${rover.x} and Y = ${rover.y}`); 
+        break;
+      case("r" || "R"):
+        turnRight() ;
+        break;  
+      case("l" || "L"):
+        turnLeft ();
+        break;
+      case("b" || "B"):
+        moveBackward();
+        break;  
+      default:
+        console.log(`The letter   ${listOfCom[cond]}  in position ${cond + 1} is not valid. Please insert a sequency of letters with only F,R,L or B`)
+        break;
+    }
+  }
+  
+  return console.log (`the rover passed by the possitions: ${rover.pastPosition}`);
+}
+  
+
+/*
+OBJETIVOS
+- function to turn
+- function to move forward 
+- function to move backward
+- enforce the limits of the grid
+- tracking of the way passed by
+- creation of obstacles
+*/
+  
+  receiveCom("rrfffffffjnffff")
